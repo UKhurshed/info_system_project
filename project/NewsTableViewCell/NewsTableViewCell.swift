@@ -7,6 +7,7 @@
 
 import UIKit
 
+/// NewsTableViewCell extends from UITableViewCell
 class NewsTableViewCell: UITableViewCell {
 
     @IBOutlet weak var newsImg: UIImageView!
@@ -18,10 +19,18 @@ class NewsTableViewCell: UITableViewCell {
         self.accessoryType = .none
     }
     
+    /// Fetch all of data from request, in our case News
+    /// - Parameter news: News struct
     func setCellWithValuesOf(_ news: News){
         updateUI(title: news.title, desc: news.description, imageNews: news.urlToImage, urlNews: news.url)
     }
     
+    /// After fetch news we need transfer item for show in list
+    /// - Parameters:
+    ///   - title: title text
+    ///   - desc: description text
+    ///   - imageNews: image url
+    ///   - urlNews: url for open in browser
     private func updateUI(title: String?, desc: String?, imageNews: String?, urlNews: String?){
         self.newsDesc.numberOfLines = 0
         self.newsTitle.text = title

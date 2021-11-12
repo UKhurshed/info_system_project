@@ -7,6 +7,7 @@
 
 import Foundation
 
+/// Item struct for json response
 struct News: Codable{
     let title: String
     let description: String?
@@ -14,6 +15,7 @@ struct News: Codable{
     let urlToImage: String?
 }
 
+/// Root item from response
 struct NewsData: Codable{
     let articles: [News]
 }

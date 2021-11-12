@@ -8,7 +8,10 @@
 import Foundation
 import Network
 
+/// Class for managing internet connection
 class ConnectionManager{
+    
+    /// Singleton instance of ConnectionManager
     static let shared = ConnectionManager()
     
     private let queue = DispatchQueue.global()
@@ -17,7 +20,8 @@ class ConnectionManager{
         public private(set) var isConnected: Bool = false
         
         public private(set) var connectionType: ConnectionType = .unknown
-        
+    
+    /// It's type of state internet connection
         enum ConnectionType{
             case wifi
             case cellular
@@ -28,7 +32,8 @@ class ConnectionManager{
         private init(){
             monitor = NWPathMonitor()
         }
-        
+    
+    /// Start handling internet connection
         public func startMonitoring(){
             monitor.start(queue: queue)
             monitor.pathUpdateHandler = { [weak self] path in
@@ -36,11 +41,14 @@ class ConnectionManager{
                 self?.getConnectionType(path)
             }
         }
-        
+    
+    /// Stop monitoring for internet connection
         public func stopMonitoring(){
             monitor.cancel()
         }
-        
+    
+    /// Getting type of connection and set it for our connectionType
+    /// - Parameter path: Network type of state
         private func getConnectionType(_ path: NWPath){
             if path.usesInterfaceType(.wifi){
                 connectionType = .wifi

@@ -8,6 +8,7 @@
 import UIKit
 import SafariServices
 
+/// MainViewController
 class MainViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
@@ -26,10 +27,8 @@ class MainViewController: UIViewController {
         
     }
     
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-    }
-    
+    /// In "viewDidAppear" we check our UserDefaults does has value for searching category and query
+    /// - Parameter animated: bool property
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         print("viewDidAppear")
@@ -37,6 +36,7 @@ class MainViewController: UIViewController {
         loadNews(source: source, query: "")
     }
     
+    /// Click this button we open SourceViewController for choose category
     @objc func sourceScreen(){
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let viewController = storyboard.instantiateViewController(withIdentifier: "source_vc")
@@ -49,6 +49,10 @@ class MainViewController: UIViewController {
         source = ""
     }
     
+    /// We call this function, when opened our MainVewController
+    /// - Parameters:
+    ///   - source: Find sources that display news of this category. Possible options: business, entertainment, general, health, science, sports, technology.
+    ///   - query: Keywords or a phrase to search for.
     private func loadNews(source: String, query: String){
         print("source: \(source)")
         viewModel.fetchNews(source: source, query: query){ [weak self] in
@@ -59,6 +63,7 @@ class MainViewController: UIViewController {
         }
     }
     
+    /// SearchBar controller initialize
     private func searchBar(){
         navigationItem.searchController = searchVC
         searchVC.searchBar.delegate = self
