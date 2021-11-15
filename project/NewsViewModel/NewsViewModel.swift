@@ -7,9 +7,17 @@
 
 import Foundation
 
+/// This class works in middle layer for implementation ViewModel layer
 class NewsViewModel{
+    /// Store list of news after request to server
     private var topHeadlineNews = [News]()
     
+    /// Fetch News
+    ///
+    /// - Parameters:
+    ///   - source: Find sources that display news of this category. Possible options: business, entertainment, general, health, science, sports, technology.
+    ///   - query: Keywords or a phrase to search for.
+    ///   - completion: This completion return
     func fetchNews(source: String,query: String, completion: @escaping () -> ()){
         NetworkManager.shared.getNews(source: source, query: query){ [weak self] result in
             switch result{
@@ -23,6 +31,10 @@ class NewsViewModel{
         }
     }
     
+    /// Return count of elements from list news
+    ///
+    /// - Parameter section: section from uitableView
+    /// - Returns: if count of list empty return zero, otherwise count of list
     func numberOfRowsInSection(section: Int) -> Int{
         if topHeadlineNews.count != 0 {
             return topHeadlineNews.count
@@ -31,6 +43,10 @@ class NewsViewModel{
         }
     }
     
+    /// Return cell from list items
+    ///
+    /// - Parameter indexPath: integer parametr getting from index of list
+    /// - Returns: Item from list, it is News struct
     func cellForRowAt(indexPath: IndexPath) -> News{
         return topHeadlineNews[indexPath.row]
     }

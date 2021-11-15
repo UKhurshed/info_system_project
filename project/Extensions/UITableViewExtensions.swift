@@ -8,8 +8,14 @@
 import Foundation
 import UIKit
 
+// MARK: - Implemented UITableView, show another View when tableView is empty
 extension UITableView{
     
+    /// Set title and message for showing EmptyView when tableView is empty
+    ///
+    /// - Parameters:
+    ///   - title: title message
+    ///   - message: description message
     func setEmptyView(title: String, message: String) {
         let emptyView = UIView(frame: CGRect(x: self.center.x, y: self.center.y, width: self.bounds.size.width, height: self.bounds.size.height))
         let titleLabel = UILabel()
@@ -35,6 +41,8 @@ extension UITableView{
         self.backgroundView = emptyView
         self.separatorStyle = .none
     }
+    
+    /// Recovering backgroundView
     func restore() {
         self.backgroundView = nil
         self.separatorStyle = .singleLine

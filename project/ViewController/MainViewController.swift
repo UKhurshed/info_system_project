@@ -8,13 +8,19 @@
 import UIKit
 import SafariServices
 
+/// MainViewController
 class MainViewController: UIViewController {
     
+    /// UITableView
     @IBOutlet weak var tableView: UITableView!
+    /// Instance of NewsViewModel
     private var viewModel = NewsViewModel()
+    /// UISearchController for searching news
     private let searchVC = UISearchController(searchResultsController: nil)
+    /// Store selected category after transition
     private var source = ""
     
+    /// override viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "News"
@@ -26,10 +32,14 @@ class MainViewController: UIViewController {
         
     }
     
+    /// override viewDidLayoutSubviews
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
     }
     
+    /// In "viewDidAppear" we check our UserDefaults does has value for searching category and query
+    ///
+    /// - Parameter animated: bool parametr
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         print("viewDidAppear")
@@ -37,18 +47,26 @@ class MainViewController: UIViewController {
         loadNews(source: source, query: "")
     }
     
+    /// Click this button we open SourceViewController for choose category
     @objc func sourceScreen(){
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let viewController = storyboard.instantiateViewController(withIdentifier: "source_vc")
         navigationController?.pushViewController(viewController, animated: true)
     }
     
+    /// override viewWillDisappear, clear source and UserDefaults store variables
+    /// - Parameter animated: <#animated description#>
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         UserDefaults.standard.removeObject(forKey: "category")
         source = ""
     }
     
+    /// We used this function, when opened our MainVewController
+    ///
+    /// - Parameters:
+    ///   - source: Find sources that display news of this category. Possible options: business, entertainment, general, health, science, sports, technology.
+    ///   - query: Keywords or a phrase to search for.
     private func loadNews(source: String, query: String){
         print("source: \(source)")
         viewModel.fetchNews(source: source, query: query){ [weak self] in
@@ -59,6 +77,7 @@ class MainViewController: UIViewController {
         }
     }
     
+    /// SearchBar controller initialize
     private func searchBar(){
         navigationItem.searchController = searchVC
         searchVC.searchBar.delegate = self
@@ -67,6 +86,7 @@ class MainViewController: UIViewController {
     
 }
 
+// MARK: Delegate of UISearchBarDelegate.
 extension MainViewController: UISearchBarDelegate{
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         guard let text = searchBar.text, !text.isEmpty else{
@@ -78,6 +98,7 @@ extension MainViewController: UISearchBarDelegate{
     }
 }
 
+// MARK: Delegates of UITableViewDataSource, UITableViewDelegate
 extension MainViewController: UITableViewDataSource, UITableViewDelegate{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
@@ -97,6 +118,12 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate{
     
     }
     
+    /// NewsTableViewCell cell returns
+    ///
+    /// - Parameters:
+    ///   - tableView: UITableView
+    ///   - indexPath: IndexPath
+    /// - Returns: cell of tableView List
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell  = tableView.dequeueReusableCell(withIdentifier: "newsCell", for: indexPath) as! NewsTableViewCell
         let news = viewModel.cellForRowAt(indexPath: indexPath)
@@ -104,6 +131,10 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate{
         return cell
     }
     
+    /// After click cell of tableView list this func opened safari browser and show news site
+    /// - Parameters:
+    ///   - tableView: UITableView
+    ///   - indexPath: IndexPath
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         let news = viewModel.cellForRowAt(indexPath: indexPath)

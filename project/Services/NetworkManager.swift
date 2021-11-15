@@ -7,15 +7,27 @@
 
 import Foundation
 
+/// This class used used to fetch response from server and cached image in NSCache
 class NetworkManager{
+    
+    /// Variable for caching image
     let imageCache = NSCache<NSString, NSData>()
     
+    /// Singleton instance from class
     static let shared = NetworkManager()
     
+    /// Private constructor
     private init(){}
     
+    /// Base url from News API
     private let baseUrl = "https://newsapi.org/v2/"
     
+    /// Main func for getting news from request
+    ///
+    /// - Parameters:
+    ///   - source: Find sources that display news of this category. Possible options: business, entertainment, general, health, science, sports, technology.
+    ///   - query: Keywords or a phrase to search for.
+    ///   - completion: This completion return NewsData struct or Error depends from request state
     func getNews(source: String, query: String, completion: @escaping (Result<NewsData, Error>) -> Void){
         let urlString = "\(baseUrl)top-headlines?q=\(query)&category=\(source)&country=ru&apiKey=\(ApiKey.key)"
         guard let url = URL(string: urlString) else{
@@ -50,6 +62,11 @@ class NetworkManager{
     }
     
     
+    /// This function get Image from url and cache in NSCache
+    ///
+    /// - Parameters:
+    ///   - urlString: url from image
+    ///   - completion: This completion after calling function and return just Void or Nil depends from request
     func getImage(urlString: String, completion: @escaping (Data?) -> Void){
         guard let url = URL(string: urlString) else{
             completion(nil)
@@ -62,17 +79,15 @@ class NetworkManager{
             URLSession.shared.dataTask(with: url){ (data, response, error) in
                 
                 if let error = error{
+                    print("\(error.localizedDescription)")
                     completion(nil)
                 }
                 if let data = data{
                     do {
                         self.imageCache.setObject(data as NSData, forKey: NSString(string: urlString))
                         completion(data)
-                    }catch{
-                        completion(nil)
                     }
                 }
-                
                 
             }.resume()
         }

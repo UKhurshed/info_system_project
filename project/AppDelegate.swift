@@ -8,27 +8,49 @@
 import UIKit
 import CoreData
 
+/// Application Level delgate class, which handles application delegate methods
 @main
+
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
-
+    
+    /// Delegate method called when the launch process is almost done and the app is almost ready to run.
+    ///
+    /// - Parameters:
+    ///   - application: application instance
+    ///   - launchOptions: options dictionary for application.
+    /// - Returns: false if the app cannot handle the URL resource or continue a user activity, otherwise return true
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
+        //Start monitoring internet connection
         ConnectionManager.shared.startMonitoring()
         
+        // Override point for customization after application launch.
         return true
     }
 
     // MARK: UISceneSession Lifecycle
-
+    
+    /// Called when a new scene session is being created
+    ///
+    /// - Parameters:
+    ///   - application: application
+    ///   - connectingSceneSession: connectingSceneSession
+    ///   - options: options
+    /// - Returns: default instance of UISceneConfiguration
     func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {
-        // Called when a new scene session is being created.
+       
         // Use this method to select a configuration to create the new scene with.
         return UISceneConfiguration(name: "Default Configuration", sessionRole: connectingSceneSession.role)
     }
-
+    
+    /// DidDiscardSceneSession implementation
+    ///
+    /// - Parameters:
+    ///   - application: application
+    ///   - sceneSessions: sceneSessions
     func application(_ application: UIApplication, didDiscardSceneSessions sceneSessions: Set<UISceneSession>) {
         // Called when the user discards a scene session.
         // If any sessions were discarded while the application was not running, this will be called shortly after application:didFinishLaunchingWithOptions.
@@ -36,7 +58,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     // MARK: - Core Data stack
-
+    
+    /// Core Data stack
     lazy var persistentContainer: NSPersistentContainer = {
         /*
          The persistent container for the application. This implementation
@@ -65,7 +88,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }()
 
     // MARK: - Core Data Saving support
-
+    
+    /// Core Data Saving support
     func saveContext () {
         let context = persistentContainer.viewContext
         if context.hasChanges {
