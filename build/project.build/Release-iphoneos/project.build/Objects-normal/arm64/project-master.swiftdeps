@@ -1,0 +1,18 @@
+version: "Apple Swift version 5.5.1 (swiftlang-1300.0.31.4 clang-1300.0.29.6)"
+options: "917371b71035dca77f28e110fce9ffa1605297a5c6a0a78f0157ec977828f850"
+build_start_time: [1636893899, 792004108]
+build_end_time: [1636893904, 878990173]
+inputs:
+  "/Users/khurshedumarov/Documents/Xcode/sampleProject/project/project/AppDelegate.swift": [1636399266, 358843564]
+  "/Users/khurshedumarov/Documents/Xcode/sampleProject/project/project/Config/ApiKey.swift": [1636773747, 422870635]
+  "/Users/khurshedumarov/Documents/Xcode/sampleProject/project/project/CoreData/NewsEntity+CoreDataClass.swift": [1636399309, 722909688]
+  "/Users/khurshedumarov/Documents/Xcode/sampleProject/project/project/CoreData/NewsEntity+CoreDataProperties.swift": [1636399309, 723669052]
+  "/Users/khurshedumarov/Documents/Xcode/sampleProject/project/project/Extensions/UITableViewExtensions.swift": [1636371863, 462706089]
+  "/Users/khurshedumarov/Documents/Xcode/sampleProject/project/project/Models/News.swift": [1636773747, 429775238]
+  "/Users/khurshedumarov/Documents/Xcode/sampleProject/project/project/NewsTableViewCell/NewsTableViewCell.swift": [1636773747, 443277597]
+  "/Users/khurshedumarov/Documents/Xcode/sampleProject/project/project/NewsViewModel/NewsViewModel.swift": [1636773747, 450757503]
+  "/Users/khurshedumarov/Documents/Xcode/sampleProject/project/project/SceneDelegate.swift": [1636288863, 967168569]
+  "/Users/khurshedumarov/Documents/Xcode/sampleProject/project/project/Services/ConnectionManager.swift": [1636773747, 404500484]
+  "/Users/khurshedumarov/Documents/Xcode/sampleProject/project/project/Services/NetworkManager.swift": [1636773747, 412096023]
+  "/Users/khurshedumarov/Documents/Xcode/sampleProject/project/project/ViewController/MainViewController.swift": [1636773747, 436503410]
+  "/Users/khurshedumarov/Documents/Xcode/sampleProject/project/project/ViewController/SourceViewController.swift": [1636773747, 397165775]
