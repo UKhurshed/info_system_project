@@ -7,14 +7,12 @@
 
 import UIKit
 import CoreData
-
+import YandexMobileMetrica
 /// Application Level delgate class, which handles application delegate methods
 @main
 
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-
-    
     /// Delegate method called when the launch process is almost done and the app is almost ready to run.
     ///
     /// - Parameters:
@@ -23,12 +21,33 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     /// - Returns: false if the app cannot handle the URL resource or continue a user activity, otherwise return true
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        
+        let configuration = YMMYandexMetricaConfiguration.init(apiKey: "dc47fd45-f53a-4e70-a778-3d59dbca2841")
+        YMMYandexMetrica.activate(with: configuration!)
         //Start monitoring internet connection
         ConnectionManager.shared.startMonitoring()
         
+        isAppAlreadyLaunchedOnce()
+        
         // Override point for customization after application launch.
         return true
+    }
+    
+    func isAppAlreadyLaunchedOnce(){
+        let defaults = UserDefaults.standard.bool(forKey: "launchedBefore")
+        if defaults {
+            debugPrint("Not first launch")
+            YMMYandexMetrica.reportEvent("Re-Launch", onFailure: { (error) in
+                debugPrint("Re-Launch report was fail: \(error.localizedDescription)")
+            })
+            
+        }else{
+            debugPrint("First launch")
+            YMMYandexMetrica.reportEvent("First Launch", onFailure: { (error) in
+                debugPrint("First Launch report was fail: \(error.localizedDescription)")
+            })
+            UserDefaults.standard.set(true, forKey: "launchedBefore")
+            
+        }
     }
 
     // MARK: UISceneSession Lifecycle
@@ -45,7 +64,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Use this method to select a configuration to create the new scene with.
         return UISceneConfiguration(name: "Default Configuration", sessionRole: connectingSceneSession.role)
     }
-    
+    //dc47fd45-f53a-4e70-a778-3d59dbca2841
     /// DidDiscardSceneSession implementation
     ///
     /// - Parameters:

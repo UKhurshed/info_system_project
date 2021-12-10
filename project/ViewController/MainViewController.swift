@@ -7,6 +7,7 @@
 
 import UIKit
 import SafariServices
+import YandexMobileMetrica
 
 /// MainViewController
 class MainViewController: UIViewController {
@@ -52,6 +53,11 @@ class MainViewController: UIViewController {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let viewController = storyboard.instantiateViewController(withIdentifier: "source_vc")
         navigationController?.pushViewController(viewController, animated: true)
+        let eventParametrs: [String : Any] = ["buy" : "Training", "id" : 1]
+        debugPrint("source button was clicked")
+        YMMYandexMetrica.reportEvent("SourceAddClick", parameters: eventParametrs, onFailure: { (error) in
+            debugPrint("fail report: \(error.localizedDescription)")
+        })
     }
     
     /// override viewWillDisappear, clear source and UserDefaults store variables

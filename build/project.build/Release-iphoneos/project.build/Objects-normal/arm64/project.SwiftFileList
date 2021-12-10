@@ -1,3 +1,4 @@
+/Users/khurshedumarov/Documents/Xcode/sampleProject/project/common/common.swift
 /Users/khurshedumarov/Documents/Xcode/sampleProject/project/project/Models/News.swift
 /Users/khurshedumarov/Documents/Xcode/sampleProject/project/project/Services/ConnectionManager.swift
 /Users/khurshedumarov/Documents/Xcode/sampleProject/project/project/CoreData/NewsEntity+CoreDataClass.swift
@@ -7,6 +8,7 @@
 /Users/khurshedumarov/Documents/Xcode/sampleProject/project/project/Services/NetworkManager.swift
 /Users/khurshedumarov/Documents/Xcode/sampleProject/project/project/Config/ApiKey.swift
 /Users/khurshedumarov/Documents/Xcode/sampleProject/project/project/ViewController/SourceViewController.swift
+/Users/khurshedumarov/Documents/Xcode/sampleProject/project/mainPage/main_page.swift
 /Users/khurshedumarov/Documents/Xcode/sampleProject/project/project/SceneDelegate.swift
 /Users/khurshedumarov/Documents/Xcode/sampleProject/project/project/CoreData/NewsEntity+CoreDataProperties.swift
 /Users/khurshedumarov/Documents/Xcode/sampleProject/project/project/NewsViewModel/NewsViewModel.swift
